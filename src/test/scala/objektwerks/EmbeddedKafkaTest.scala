@@ -10,6 +10,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.compatible.Assertion
+import org.slf4j.LoggerFactory
 
 import org.apache.kafka.common.serialization._
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -18,10 +19,16 @@ import scala.concurrent.duration._
 import scala.jdk.CollectionConverters._
 
 class EmbeddedKafkaTest extends AnyFunSuite with BeforeAndAfterAll with Matchers with EmbeddedKafka {
+  val logger = LoggerFactory.getLogger(getClass)
   implicit val config = EmbeddedKafkaConfig.defaultConfig
   val kafka = EmbeddedKafka.start()
-  
-  override def afterAll(): Unit = kafka.stop(false)
+  logger.info("*** embedded kafka started")
+
+  override def afterAll(): Unit = {
+    logger.info("*** embedded kafka stopping ...")
+    kafka.stop(false)
+    logger.info("*** embedded kafka stopped")
+  }
 
   test("embedded") {
     implicit val serializer = new StringSerializer()
