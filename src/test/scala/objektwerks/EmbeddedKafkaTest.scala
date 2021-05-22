@@ -30,7 +30,7 @@ class EmbeddedKafkaTest extends AnyFunSuite with BeforeAndAfterAll with Matchers
     logger.info("*** embedded kafka stopped")
   }
 
-  test("embedded") {
+  test("producer > consumer") {
     implicit val serializer = new StringSerializer()
     implicit val deserializer = new StringDeserializer()
     val key = "key"
@@ -46,7 +46,7 @@ class EmbeddedKafkaTest extends AnyFunSuite with BeforeAndAfterAll with Matchers
       consumer.subscribe( Collections.singletonList(topic) )
       eventually {
         val records = consumer.poll( ofMillis(9.seconds.toMillis) ).asScala
-        records should have size 1
+        records.size shouldBe 1
         records.head.key shouldBe key
         records.head.value shouldBe value
       }
