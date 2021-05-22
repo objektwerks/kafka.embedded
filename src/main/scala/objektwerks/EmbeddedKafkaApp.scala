@@ -7,6 +7,7 @@ import java.time.Duration._
 
 import org.scalatest.concurrent.Eventually._
 import org.scalatest.compatible.Assertion
+import org.slf4j.LoggerFactory
 
 import org.apache.kafka.common.serialization._
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -16,13 +17,13 @@ import scala.jdk.CollectionConverters._
 
 object EmbeddedKafkaApp extends EmbeddedKafka {
   def main(args: Array[String]): Unit = {
+    val logger = LoggerFactory.getLogger(getClass)
     implicit val config = EmbeddedKafkaConfig.defaultConfig
     val kafka = EmbeddedKafka.start()
-    println("embedded kafka started")
+    logger.info("embedded kafka started")
 
     implicit val serializer = new StringSerializer()
     implicit val deserializer = new StringDeserializer()
-
     val key = "key"
     val value = "value"
     val topic = "app"
@@ -43,12 +44,12 @@ object EmbeddedKafkaApp extends EmbeddedKafka {
           new Assertion{}
         }
       }
-      println("test passed")
-    }.recover { case error: Throwable => println(s"test failed: $error") }
+      logger.info("test passed")
+    }.recover { case error: Throwable => logger.error(s"test failed: $error") }
 
-    println("embedded kafka stopping ...")
+    logger.info("embedded kafka stopping ...")
     kafka.stop(false)
-    println("embedded kafka stopped")
+    logger.info("embedded kafka stopped")
 
     ()
   }
