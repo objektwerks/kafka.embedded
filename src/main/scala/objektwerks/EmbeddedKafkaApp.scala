@@ -20,7 +20,7 @@ object EmbeddedKafkaApp extends EmbeddedKafka {
     val logger = LoggerFactory.getLogger(getClass)
     implicit val config = EmbeddedKafkaConfig.defaultConfig
     val kafka = EmbeddedKafka.start()
-    logger.info("embedded kafka started")
+    logger.info("*** embedded kafka started")
 
     implicit val serializer = new StringSerializer()
     implicit val deserializer = new StringDeserializer()
@@ -44,12 +44,12 @@ object EmbeddedKafkaApp extends EmbeddedKafka {
           new Assertion{}
         }
       }
-      logger.info("test passed")
-    }.recover { case error: Throwable => logger.error(s"test failed: $error") }
+      logger.info("*** test passed")
+    }.recover { case error: Throwable => logger.error(s"*** test failed: $error") }
 
-    logger.info("embedded kafka stopping ...")
+    logger.info("*** embedded kafka stopping ...")
     kafka.stop(false)
-    logger.info("embedded kafka stopped")
+    logger.info("*** embedded kafka stopped")
 
     ()
   }
