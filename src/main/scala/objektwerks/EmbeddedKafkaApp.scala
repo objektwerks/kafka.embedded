@@ -38,14 +38,14 @@ object EmbeddedKafkaApp extends EmbeddedKafka {
         consumer.subscribe( Collections.singletonList(topic) )
         eventually {
           val records = consumer.poll( ofMillis(9.seconds.toMillis) ).asScala
-          require( records.size == 1, "Records size != 1" )
-          require( records.head.key == key, "Key invalid!" )
-          require( records.head.value == value, "Value invalid!" )
-          new Assertion{}
+          require( records.size == 1, "records size != 1" )
+          require( records.head.key == key, s"record key != $key" )
+          require( records.head.value == value, s"record value != $value" )
+          new Assertion {}
         }
       }
-      logger.info("*** test passed")
-    }.recover { case error: Throwable => logger.error(s"*** test failed: $error") }
+      logger.info("*** producer / consumer test passed!")
+    }.recover { case error: Throwable => logger.error(s"*** producer / consumer test failed: $error") }
 
     logger.info("*** embedded kafka stopping ...")
     kafka.stop(false)
