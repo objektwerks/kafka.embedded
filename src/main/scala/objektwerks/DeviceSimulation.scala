@@ -10,8 +10,8 @@ import scala.annotation.nowarn
 import upickle.default._
 
 sealed trait Entity extends Product with Serializable
-final case class Device(id: String, name: String, created: Long) extends Entity
-final case class DeviceReading(id: Int = 0, deviceId: String, currentValue: Float, unit: String, datetime: Long, version: Float) extends Entity
+final case class Device(id: String, name: String, created: String) extends Entity
+final case class DeviceReading(id: Int = 0, deviceId: String, value: Double, unit: String, observed: String, version: Int) extends Entity
 object Device {
   implicit val readWriter: ReadWriter[Device] = macroRW
 }
