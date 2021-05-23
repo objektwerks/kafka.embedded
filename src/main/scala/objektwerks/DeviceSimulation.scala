@@ -7,10 +7,17 @@ import io.getquill._
 import org.slf4j.LoggerFactory
 import scala.io.StdIn
 import scala.annotation.nowarn
+import upickle.default._
 
 sealed trait Entity extends Product with Serializable
 final case class Device(id: String, name: String, created: Long) extends Entity
 final case class DeviceReading(id: Int = 0, deviceId: String, currentValue: Float, unit: String, datetime: Long, version: Float) extends Entity
+object Device {
+  implicit val readWriter: ReadWriter[Device] = macroRW
+}
+object DeviceReading {
+  implicit val readWriter: ReadWriter[DeviceReading] = macroRW
+}
 
 class Store(conf: Config) {  
   implicit val ctx = new H2JdbcContext(SnakeCase, conf.getConfig("quill.ctx"))
