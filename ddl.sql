@@ -11,5 +11,6 @@ create table device_reading (
   value double not null,
   unit varchar(128) not null,
   observed varchar(26) not null,
-  version int not null
+  version int not null,
+  foreign key(device_id) references device(id)
 );
