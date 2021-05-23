@@ -10,11 +10,15 @@ object Simulation {
     val logger = LoggerFactory.getLogger(getClass)
     val conf = ConfigFactory.load("simulation.conf")
 
+    val topic = conf.getString("kafka.topic")
     val kafka = Kafka()
 
+    val store = Store(conf)
+    store.addDevice( Device.defaultDevice )
+
     val system = ActorSystem.create("simulation", conf)
-    val publisher = system.actorOf(Props[Publisher](), name = "publisher")
-    val subscriber = system.actorOf(Props(classOf[Subscriber], Store(conf)), name = "subscriber")
+    val publisher = system.actorOf(Props(classOf[Publisher], topic), name = "publisher")
+    val subscriber = system.actorOf(Props(classOf[Subscriber], topic, store), name = "subscriber")
     publisher ! Publish
     subscriber ! Subscribe
 
