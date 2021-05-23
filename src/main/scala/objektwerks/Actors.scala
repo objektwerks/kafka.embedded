@@ -31,7 +31,7 @@ class Publisher(topic: String) extends Actor with ActorLogging {
 class Subscriber(topic: String, store: Store) extends Actor with ActorLogging {
   implicit val ec = context.system.dispatcher
   
-  context.system.scheduler.scheduleWithFixedDelay(3 seconds, 3 seconds)( pollConsumerRecords() )
+  context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollConsumerRecords() )
 
   def receive: Receive = {
     case Subscribe => log.info(s"*** subscriber activated ...")
