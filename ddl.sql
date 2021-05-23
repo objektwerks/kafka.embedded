@@ -11,5 +11,5 @@ create table device_reading (
   current_value double not null,
   unit varchar(128) not null,
   datetime bigint not null,
-  version double non null
+  version double not null
 );

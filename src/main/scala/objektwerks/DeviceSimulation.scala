@@ -25,25 +25,30 @@ class Store(conf: Config) {
 }
 
 object DeviceSimulation {
-  val logger = LoggerFactory.getLogger(getClass)
+  def main(args: Array[String]): Unit = {
+    val logger = LoggerFactory.getLogger(getClass)
 
-  implicit val config = EmbeddedKafkaConfig.defaultConfig
-  val kafka = EmbeddedKafka.start()
-  logger.info("*** embedded kafka started")
+    implicit val config = EmbeddedKafkaConfig.defaultConfig
+    val kafka = EmbeddedKafka.start()
+    logger.info("*** embedded kafka started")
 
-  val conf = ConfigFactory.load("simulation.conf")
-  implicit val system = ActorSystem.create("simulation", conf)
-  implicit val dispatcher = system.dispatcher
-  logger.info("*** akka system started")
+    val conf = ConfigFactory.load("simulation.conf")
+    implicit val system = ActorSystem.create("simulation", conf)
+    implicit val dispatcher = system.dispatcher
+    println(dispatcher)
+    logger.info("*** akka system started")
 
-  val store = new Store(conf)
+    val store = new Store(conf)
+    println(store)
 
-  println(s"*** Press return to shutdown simulation.")
-  StdIn.readLine()
+    println(s"*** Press return to shutdown simulation.")
+    StdIn.readLine()
+    println(s"*** Shutting down simulation ...")
 
-  system.terminate()
-  logger.info("*** akka system terminated")
-  kafka.stop(false)
-  logger.info("*** embedded kafka stopped")
-  ()
+    system.terminate()
+    logger.info("*** akka system terminated")
+    kafka.stop(false)
+    logger.info("*** embedded kafka stopped")
+    ()
+  }
 }
