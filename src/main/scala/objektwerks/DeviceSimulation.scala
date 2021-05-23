@@ -17,27 +17,24 @@ class Store(conf: Config) {
   import ctx._
 
   @nowarn def addDevice(device: Device): Unit = run( query[Device].insert(lift(device)) )
-
   def addDeviceReading(reading: DeviceReading): Int = run( query[DeviceReading].insert(lift(reading)).returningGenerated(_.id) )
-
   def listDevices(): Seq[Device] = run( query[Device] )
-
   def listDeviceReadings(): Seq[DeviceReading] = run( query[DeviceReading] )
 }
 
 object DeviceSimulation {
   def main(args: Array[String]): Unit = {
     val logger = LoggerFactory.getLogger(getClass)
-
-    implicit val config = EmbeddedKafkaConfig.defaultConfig
-    val kafka = EmbeddedKafka.start()
-    logger.info("*** embedded kafka started")
-
     val conf = ConfigFactory.load("simulation.conf")
     implicit val system = ActorSystem.create("simulation", conf)
     implicit val dispatcher = system.dispatcher
     println(dispatcher)
     logger.info("*** akka system started")
+
+    implicit val config = EmbeddedKafkaConfig.defaultConfig
+    val kafka = EmbeddedKafka.start()
+    logger.info("*** embedded kafka started")
+
 
     val store = new Store(conf)
     println(store)
