@@ -13,12 +13,9 @@ Test
 Run
 ---
 1. sbt run
->Multiple main classes detected. Select one to run:
-1. objektwerks.DeviceSimulation
-2. objektwerks.EmbeddedKafkaApp
 
 Logs
 ----
->Search logs using *** to view custom app and test logger statements.
-1. ./target/app.log
+>Search logs using search term *** to view custom simulation and test logger statements.
+1. ./target/simulation.log
 2. ./targe/test.log

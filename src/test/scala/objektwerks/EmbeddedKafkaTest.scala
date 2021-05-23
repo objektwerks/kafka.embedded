@@ -21,12 +21,10 @@ import scala.jdk.CollectionConverters._
 class EmbeddedKafkaTest extends AnyFunSuite with BeforeAndAfterAll with Matchers with EmbeddedKafka {
   val logger = LoggerFactory.getLogger(getClass)
   implicit val config = EmbeddedKafkaConfig.defaultConfig
-  logger.info("*** embedded kafka starting ...")
   val kafka = EmbeddedKafka.start()
   logger.info("*** embedded kafka started")
 
   override def afterAll(): Unit = {
-    logger.info("*** embedded kafka stopping ...")
     kafka.stop(false)
     logger.info("*** embedded kafka stopped")
   }
