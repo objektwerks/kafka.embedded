@@ -8,8 +8,9 @@ import org.slf4j.LoggerFactory
 import scala.io.StdIn
 import scala.annotation.nowarn
 
-case class Device(id: String, name: String, created: Long)
-case class DeviceReading(id: Int = 0, deviceId: String, currentValue: Float, unit: String, datetime: Long, version: Float)
+sealed trait Entity extends Product with Serializable
+final case class Device(id: String, name: String, created: Long) extends Entity
+final case class DeviceReading(id: Int = 0, deviceId: String, currentValue: Float, unit: String, datetime: Long, version: Float) extends Entity
 
 class Store(conf: Config) {  
   implicit val ctx = new H2JdbcContext(SnakeCase, conf.getConfig("quill.ctx"))
