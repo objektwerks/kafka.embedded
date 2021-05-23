@@ -19,6 +19,7 @@ object EmbeddedKafkaApp extends EmbeddedKafka {
   def main(args: Array[String]): Unit = {
     val logger = LoggerFactory.getLogger(getClass)
     implicit val config = EmbeddedKafkaConfig.defaultConfig
+    logger.info("*** embedded kafka starting ...")
     val kafka = EmbeddedKafka.start()
     logger.info("*** embedded kafka started")
 
