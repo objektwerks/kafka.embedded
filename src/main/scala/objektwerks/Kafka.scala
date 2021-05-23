@@ -23,19 +23,20 @@ object Kafka extends EmbeddedKafka {
 
   def createTopic(name: String): Unit = createCustomTopic(name).toOption.get
 
-  def product(topic: String, key: String, value: String): Unit = {
+  def sendProducerRecord(topic: String, key: String, value: String): Unit = {
     val producer = new KafkaProducer[String, String](new Properties())
     val record = new ProducerRecord[String, String](topic, key, value)
-    producer.send(record)
+    producer.send(record).get()
     logger.info(s"*** producer send: $record")
-    ()
+    producer.close()
   }
  
-  def consume(topic: String): List[ConsumerRecord[String, String]] = {
+  def pollConsumerRecords(topic: String): List[ConsumerRecord[String, String]] = {
     val consumer = new KafkaConsumer[String, String](new Properties())
     consumer.subscribe( List(topic).asJava )
     val records = consumer.poll( Duration.ofMillis(3000L) ).asScala.toList
     logger.info(s"*** comsumer poll: ${records.foreach(println)}")
+    consumer.close()
     records
   }
 }
