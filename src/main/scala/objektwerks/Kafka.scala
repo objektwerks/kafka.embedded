@@ -4,6 +4,7 @@ import io.github.embeddedkafka._
 
 import java.time.Duration
 import java.util.Properties
+
 import org.slf4j.LoggerFactory
 import org.apache.kafka.common.serialization._
 import org.apache.kafka.clients.producer.ProducerRecord

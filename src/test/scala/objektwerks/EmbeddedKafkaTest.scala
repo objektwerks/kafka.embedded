@@ -11,7 +11,6 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.compatible.Assertion
 import org.slf4j.LoggerFactory
-
 import org.apache.kafka.common.serialization._
 import org.apache.kafka.clients.producer.ProducerRecord
 
