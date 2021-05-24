@@ -1,5 +1,5 @@
-drop table device if exists;
 drop table device_reading if exists;
+drop table device if exists;
 create table device (
   id varchar(36) primary key,
   name varchar(128) not null,

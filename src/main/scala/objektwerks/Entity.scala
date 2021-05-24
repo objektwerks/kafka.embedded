@@ -3,6 +3,8 @@ package objektwerks
 import java.time.Instant
 import java.util.UUID
 
+import scala.util.Random
+
 import upickle.default._
 
 sealed trait Entity extends Product with Serializable
@@ -32,7 +34,7 @@ final case class DeviceReading(id: Int = 0,
 
 object DeviceReading {
   def newInstance: DeviceReading = DeviceReading(deviceId = Device.defaultDevice.id,
-                                                 value = 74.5,
+                                                 value = Random.between(65.0, 95.0),
                                                  unit = "Fahrenheit",
                                                  observed = Instant.now.toString,
                                                  version = 1)  

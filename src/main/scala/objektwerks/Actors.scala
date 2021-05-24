@@ -6,10 +6,10 @@ import scala.concurrent.duration._
 import scala.language.postfixOps
 
 sealed trait Message extends Product with Serializable
-final case object Publish
-final case object Subscribe
+case object Publish
+case object Subscribe
 
-class Publisher(topic: String) extends Actor with ActorLogging {
+class Publisher(topic: String, kafka: Kafka) extends Actor with ActorLogging {
   implicit val ec = context.system.dispatcher
   
   context.system.scheduler.scheduleWithFixedDelay(3 seconds, 3 seconds)( sendProducerRecord() )
@@ -21,14 +21,14 @@ class Publisher(topic: String) extends Actor with ActorLogging {
   def sendProducerRecord(): Runnable = new Runnable() {
     override def run(): Unit = {
       val reading = DeviceReading.newInstance
-      val key = reading.id.toString()
+      val key = reading.id.toString
       val value = DeviceReading.deviceReadingToJson(reading)
-      Kafka.sendProducerRecord(topic, key, value)
+      kafka.sendProducerRecord(topic, key, value)
     }
   }
 }
 
-class Subscriber(topic: String, store: Store) extends Actor with ActorLogging {
+class Subscriber(topic: String, kafka: Kafka, store: Store) extends Actor with ActorLogging {
   implicit val ec = context.system.dispatcher
   
   context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollConsumerRecords() )
@@ -39,7 +39,7 @@ class Subscriber(topic: String, store: Store) extends Actor with ActorLogging {
 
 def pollConsumerRecords(): Runnable = new Runnable() {
     override def run(): Unit = {
-      val consumerRecords = Kafka.pollConsumerRecords(topic)
+      val consumerRecords = kafka.pollConsumerRecords(topic)
       consumerRecords.foreach { record =>
         store.addDeviceReading( DeviceReading.jsonToDeviceReading( record.value() ) )
       }
