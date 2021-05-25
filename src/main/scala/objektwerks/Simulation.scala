@@ -32,8 +32,7 @@ object Simulation {
     StdIn.readLine()
     println(s"*** Generating report and shutting down simulation ...")
 
-    logger.info(s"*** Number of devices: ${store.listDevices().size}")
-    logger.info(s"*** Number of device readings: ${store.listDeviceReadings().size}")
+    store.buildReport.foreach(line => logger.info(line))
 
     system.terminate()
     Await.result(system.whenTerminated, 30 seconds)
