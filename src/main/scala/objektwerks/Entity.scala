@@ -5,6 +5,7 @@ import java.time.Instant
 import java.util.UUID
 
 import scala.util.Random
+
 import upickle.default._
 
 sealed trait Entity extends Product with Serializable

@@ -1,9 +1,11 @@
 package objektwerks
 
 import com.typesafe.config.Config
+
 import io.getquill._
 
 import java.text.DecimalFormat
+
 import scala.annotation.nowarn
 import scala.collection.mutable
 
