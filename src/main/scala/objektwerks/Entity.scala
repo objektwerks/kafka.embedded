@@ -25,6 +25,11 @@ object Device {
   def deviceToJson(device: Device): String = write(device)
 }
 
+object Unit extends Enumeration {
+  val fahrenheit = Value("F")
+  val celsius = Value("C")
+}
+
 final case class DeviceReading(id: Int = 0, 
                                deviceId: String, 
                                value: Double, 
@@ -37,7 +42,7 @@ object DeviceReading {
                                                  value = new DecimalFormat("#.##")
                                                            .format( Random.between(65.0, 95.0) )
                                                            .toDouble,
-                                                 unit = "Fahrenheit",
+                                                 unit = Unit.fahrenheit.toString,
                                                  observed = Instant.now.toString,
                                                  version = 1)
 
