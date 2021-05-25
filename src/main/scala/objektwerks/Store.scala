@@ -3,6 +3,7 @@ package objektwerks
 import com.typesafe.config.Config
 import io.getquill._
 
+import java.text.DecimalFormat
 import scala.annotation.nowarn
 import scala.collection.mutable
 
@@ -25,9 +26,12 @@ class Store(conf: Config) {
   def buildReport: Array[String] = {
     val devices = listDevices()
     val readings = listDeviceReadings()
+    var valueAvg = readings.map(reading => reading.value).fold(0.0)(_ + _) / readings.size
+    valueAvg = new DecimalFormat("#.##").format(valueAvg).toDouble
     val builder = mutable.ArrayBuilder.make[String]
     builder += s"*** Number of devices: ${devices.size}"
     builder += s"*** Number of device readings: ${readings.size}"
+    builder += s"*** Average value(temp) of device readings: $valueAvg"
     builder.result()
   }
 }
