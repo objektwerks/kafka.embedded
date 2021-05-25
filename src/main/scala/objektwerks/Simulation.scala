@@ -37,6 +37,7 @@ object Simulation {
     system.terminate()
     Await.result(system.whenTerminated, 30 seconds)
     logger.info("*** akka system terminated")
+
     kafka.stop()
     logger.info("*** embedded kafka stopped")
     ()
