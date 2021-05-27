@@ -2,10 +2,6 @@ Kafka Embedded
 --------------
 >EmbeddedKafka feature tests, to include a simulation using Akka, Kafka, uPickle, Quill and H2.
 
-Docs
-----
->See: https://github.com/embeddedkafka/embedded-kafka
-
 Simulation
 ----------
 >App that simulates the following model and process:
@@ -15,6 +11,10 @@ Simulation
 4. **Flow:** Actor Subscriber <--- poll device readings ---> Kafka Topic
 5. **Sink:** Actor Subscriber --- store device readings ---> Store
 6. **Report:** Simulation <--- build device report ---> Store
+
+EmbeddedKafka
+-------------
+>See: https://github.com/embeddedkafka/embedded-kafka
 
 Test
 ----
