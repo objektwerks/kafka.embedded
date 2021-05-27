@@ -6,6 +6,14 @@ Docs
 ----
 >See: https://github.com/embeddedkafka/embedded-kafka
 
+Simulation
+----------
+>App that simulates the following source-flow-sink-report process:
+1. **Source:** Actor Publisher --- produces message ---> Kafka Topic
+2. **Flow:** Actor Subscriber <--- consumes messages ---> Kafka Topic
+3. **Sink:** Actor Subscriber --- persist messages ---> Store
+4. **Report:** Simulation <--- build report ---> Store
+
 Test
 ----
 1. sbt clean test
