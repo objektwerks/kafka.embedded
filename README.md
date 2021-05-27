@@ -8,7 +8,7 @@ Docs
 
 Simulation
 ----------
->App that simulates the following process:
+>App that simulates the following model and process:
 1. **Model:** Device 1 ---> * DeviceReading
 2. **Bootstrap:** Simulation --- store device ---> Store
 3. **Source:** Actor Publisher --- send device reading ---> Kafka Topic
