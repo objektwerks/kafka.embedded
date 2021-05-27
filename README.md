@@ -9,8 +9,8 @@ Docs
 Simulation
 ----------
 >App that simulates the following source-flow-sink-report process:
-1. **Source:** Actor Publisher --- produces message ---> Kafka Topic
-2. **Flow:** Actor Subscriber <--- consumes messages ---> Kafka Topic
+1. **Source:** Actor Publisher --- produce message ---> Kafka Topic
+2. **Flow:** Actor Subscriber <--- consume messages ---> Kafka Topic
 3. **Sink:** Actor Subscriber --- store messages ---> Store
 4. **Report:** Simulation <--- build report ---> Store
 
