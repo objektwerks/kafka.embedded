@@ -23,10 +23,10 @@ object Simulation {
     store.addDevice( Device.defaultDevice )
 
     val system = ActorSystem.create("simulation", conf)
-    val publisher = system.actorOf(Props(classOf[Publisher], topic, kafka), name = "publisher")
-    val subscriber = system.actorOf(Props(classOf[Subscriber], topic, kafka, store), name = "subscriber")
-    publisher ! Publish
-    subscriber ! Subscribe
+    val producer = system.actorOf(Props(classOf[Producer], topic, kafka), name = "producer")
+    val consumer = system.actorOf(Props(classOf[Consumer], topic, kafka, store), name = "consumer")
+    producer ! SendProducerRecords
+    consumer ! PollConsumerRecords
 
     println(s"*** Press return to shutdown simulation.")
     StdIn.readLine()

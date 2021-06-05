@@ -6,16 +6,16 @@ import scala.concurrent.duration._
 import scala.language.postfixOps
 
 sealed trait Message extends Product with Serializable
-case object Publish
-case object Subscribe
+case object SendProducerRecords
+case object PollConsumerRecords
 
-class Publisher(topic: String, kafka: Kafka) extends Actor with ActorLogging {
+class Producer(topic: String, kafka: Kafka) extends Actor with ActorLogging {
   implicit val ec = context.system.dispatcher
-  
+
   context.system.scheduler.scheduleWithFixedDelay(3 seconds, 3 seconds)( sendProducerRecord() )
 
   def receive: Receive = {
-    case Publish => log.info(s"*** publisher activated ...")
+    case SendProducerRecords => log.info(s"*** producer activated to send producer records...")
   }
 
   def sendProducerRecord(): Runnable = new Runnable() {
@@ -28,13 +28,13 @@ class Publisher(topic: String, kafka: Kafka) extends Actor with ActorLogging {
   }
 }
 
-class Subscriber(topic: String, kafka: Kafka, store: Store) extends Actor with ActorLogging {
+class Consumer(topic: String, kafka: Kafka, store: Store) extends Actor with ActorLogging {
   implicit val ec = context.system.dispatcher
-  
+
   context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollConsumerRecords() )
 
   def receive: Receive = {
-    case Subscribe => log.info(s"*** subscriber activated ...")
+    case PollConsumerRecords => log.info(s"*** consumer activated to poll consumer records...")
   }
 
 def pollConsumerRecords(): Runnable = new Runnable() {
