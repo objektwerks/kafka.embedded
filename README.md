@@ -7,9 +7,9 @@ Simulation
 >App that simulates the following model and process:
 * **Model:** Device 1 ---> * DeviceReading
 1. **Bootstrap:** Simulation --- store device ---> Store
-2. **Source:** Actor Publisher --- send device reading ---> Kafka Topic
-3. **Flow:** Actor Subscriber <--- poll device readings ---> Kafka Topic
-4. **Sink:** Actor Subscriber --- store device readings ---> Store
+2. **Source:** Actor Producer --- send device reading ---> Kafka Topic
+3. **Flow:** Actor Consumer <--- poll device readings ---> Kafka Topic
+4. **Sink:** Actor Consumer --- store device readings ---> Store
 5. **Report:** Simulation <--- build device report ---> Store
 
 EmbeddedKafka
