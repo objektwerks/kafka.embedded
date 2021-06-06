@@ -41,13 +41,13 @@ class Kafka extends EmbeddedKafka {
   def sendProducerRecord(topic: String, key: String, value: String): Unit = {
     val record = new ProducerRecord[String, String](topic, key, value)
     producer.send(record).get()
-    logger.info(s"*** producer send: $record")
+    logger.info("*** producer send: {}", record)
   }
  
   def pollConsumerRecords(topic: String): List[ConsumerRecord[String, String]] = {
     consumer.subscribe( List(topic).asJava )
     val records = consumer.poll( Duration.ofMillis(6000L) ).asScala.toList
-    logger.info(s"*** consumer poll: ${records.size}")
+    logger.info("*** consumer poll: {}", records.size)
     records
   }
 
