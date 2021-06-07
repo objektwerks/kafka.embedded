@@ -32,7 +32,7 @@ object Simulation {
     StdIn.readLine()
     println(s"*** Generating report and shutting down simulation ...")
 
-    store.buildReport.foreach(line => logger.info(line))
+    Reporter.buildReport(store).foreach(line => logger.info(line))
 
     system.terminate()
     Await.result(system.whenTerminated, 30 seconds)
