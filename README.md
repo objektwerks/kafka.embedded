@@ -9,19 +9,20 @@ Simulation
 >and process:
 1. Simulation --- create ---> Akka System
 2. Akka System --- create ---> Simulator
-3. Akka System --- start ---> Simulator
-4. Simulator --- start ---> Kafka
-5. Simulator --- create ---> Store | Producer | Consumer | Schedulers
+3. Simulator --- start ---> Kafka
+4. Simulator --- create ---> Store | Producer | Consumer | Schedulers
+5. Akka System --- start ---> Simulator
 6. Simulator --- store default device ---> Store
-7. Simulator --- * send device reading ---> Producer
+7. Simulator Scheduler --- * send device reading ---> Producer
 8. Producer --- send producer record ---> Kafka
-9. Simulator --- * poll device readings ---> Consumer
+9. Simulator Scheduler --- * poll device readings ---> Consumer
 10. Consumer --- poll consumer records ---> Kafka
 11. Consumer --- store device readings ---> Store
-12. Akka System --- stop ---> Stimulator
-13. Simulator --- stop ---> Producer | Consumer | Kafka
-14. Simulator --- build device report ---> Store
-15. Akka System <--- terminate
+12. ***User commandline interrupt via Return***
+13. Akka System --- stop ---> Simulator
+14. Simulator --- stop ---> Producer | Consumer | Kafka
+15. Simulator --- build device report ---> Store
+16. Akka System <--- terminate
 
 EmbeddedKafka
 -------------
