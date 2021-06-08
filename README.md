@@ -34,11 +34,11 @@ Test
 
 Run
 ---
->Ideally, run the simulation for 1 minute plus.
+>Ideally run the simulation for 1 minute plus.
 1. sbt run
 
 Logs
 ----
->Search logs using search term *** to view custom simulation and test logger statements.
+>Search logs using search term *** to view custom simulation and test log statements.
 1. ./target/simulation.log
 2. ./targe/test.log
