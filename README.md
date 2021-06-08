@@ -26,7 +26,7 @@ Test
 
 Run
 ---
->Ideally, run the simulation for 1 minute.
+>Ideally, run the simulation for 1 minute plus.
 1. sbt run
 
 Logs
