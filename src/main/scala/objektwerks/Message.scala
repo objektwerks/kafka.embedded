@@ -1,5 +1,7 @@
 package objektwerks
 
 sealed trait Message extends Product with Serializable
-case object SendProducerRecords
-case object PollConsumerRecords
+case object Start extends Message
+case object Stop extends Message
+case object SendProducerRecords extends Message
+case object PollConsumerRecords extends Message

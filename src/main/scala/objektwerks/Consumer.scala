@@ -1,26 +1,14 @@
 package objektwerks
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.Actor
 
-import scala.concurrent.duration._
-import scala.language.postfixOps
-
-class Consumer(topic: String, kafka: Kafka, store: Store) extends Actor with ActorLogging {
-  implicit val ec = context.system.dispatcher
-
-  context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollConsumerRecords() )
-
+class Consumer(topic: String, kafka: Kafka, store: Store) extends Actor {
   def receive: Receive = {
-    case PollConsumerRecords => log.info(s"*** consumer activated to poll consumer records...")
+    case PollConsumerRecords => pollConsumerRecords()
   }
 
-  def pollConsumerRecords(): Runnable = new Runnable() {
-    override def run(): Unit = {
-      val consumerRecords = kafka.pollConsumerRecords(topic)
-      consumerRecords.foreach { record =>
-        store.addDeviceReading( DeviceReading.jsonToDeviceReading( record.value() ) )
-      }
-      ()
+  def pollConsumerRecords(): Unit =
+    kafka.pollConsumerRecords(topic).foreach { record =>
+      store.addDeviceReading( DeviceReading.jsonToDeviceReading( record.value() ) )
     }
-  }
 }

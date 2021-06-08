@@ -20,20 +20,16 @@ object Simulation {
     val kafka = Kafka()
 
     val store = Store(conf)
-    store.addDevice( Device.defaultDevice )
 
     val system = ActorSystem.create("simulation", conf)
-    val producer = system.actorOf(Props(classOf[Producer], topic, kafka), name = "producer")
-    val consumer = system.actorOf(Props(classOf[Consumer], topic, kafka, store), name = "consumer")
-    producer ! SendProducerRecords
-    consumer ! PollConsumerRecords
+    val simulator = system.actorOf(Props(classOf[Simulator], topic, kafka, store), name = "simulator")
+    simulator ! Start
 
     println(s"*** Press return to shutdown simulation.")
     StdIn.readLine()
-    println(s"*** Generating report and shutting down simulation ...")
+    println(s"*** Generating report and shutting down simulation...")
 
-    Reporter.buildReport(store).foreach(line => logger.info(line))
-
+    simulator ! Stop
     system.terminate()
     Await.result(system.whenTerminated, 30 seconds)
     logger.info("*** akka system terminated")
