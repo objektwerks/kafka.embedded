@@ -4,13 +4,15 @@ Kafka Embedded
 
 Simulation
 ----------
->App that simulates the following model and process:
+>App simulates this model:
 * **Model:** Device 1 ---> * DeviceReading
-1. **Bootstrap:** Simulation --- store device ---> Store
-2. **Source:** Producer --- send device reading ---> Kafka Topic
-3. **Flow:** Consumer <--- poll device readings ---> Kafka Topic
-4. **Sink:** Consumer --- store device readings ---> Store
-5. **Report:** Simulation <--- build device report ---> Reporter <--- list devices / readings ---> Store
+>and process:
+1. Simulation --- start ---> Simulator
+2. Simulator --- store default device ---> Store
+3. Simulator --- * send device reading ---> Producer --- send producer record ---> Kafka
+4. Simulator --- * poll device readings ---> Consumer --- poll consumer records ---> Kafka   
+5. Consumer --- store device readings ---> Store   
+6. Simulation --- stop ---> Stimulator --- build report ---> Store
 
 EmbeddedKafka
 -------------
