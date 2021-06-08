@@ -16,11 +16,8 @@ object Simulation {
     val logger = LoggerFactory.getLogger(getClass)
     val conf = ConfigFactory.load("simulation.conf")
 
-    val topic = conf.getString("kafka.topic")
-    val kafka = Kafka()
-
     val system = ActorSystem.create("simulation", conf)
-    val simulator = system.actorOf(Props(classOf[Simulator], topic, kafka, Store(conf)), name = "simulator")
+    val simulator = system.actorOf(Props(classOf[Simulator], conf), name = "simulator")
     simulator ! Start
 
     println(s"*** Press return to shutdown simulation.")
@@ -31,8 +28,6 @@ object Simulation {
     system.terminate()
     Await.result(system.whenTerminated, 30 seconds)
     logger.info("*** akka system terminated")
-
-    kafka.stop()
     ()
   }
 }

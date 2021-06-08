@@ -2,14 +2,22 @@ package objektwerks
 
 import akka.actor.{Actor, ActorLogging, Props}
 
+import com.typesafe.config.Config
+
 import java.text.DecimalFormat
 
 import scala.collection.mutable
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-class Simulator(topic: String, kafka: Kafka, store: Store) extends Actor with ActorLogging {
+class Simulator(conf: Config) extends Actor with ActorLogging {
   implicit val ec = context.system.dispatcher
+
+  val topic = conf.getString("kafka.topic")
+  val kafka = Kafka()
+
+  val store = Store(conf)
+  store.addDevice( Device.defaultDevice )
 
   val producer = context.actorOf(Props(classOf[Producer], topic, kafka), name = "producer")
   val consumer = context.actorOf(Props(classOf[Consumer], topic, kafka, store), name = "consumer")
@@ -18,12 +26,11 @@ class Simulator(topic: String, kafka: Kafka, store: Store) extends Actor with Ac
   context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollDeviceReadings() )
 
   def receive: Receive = {
-    case Start =>
-      store.addDevice( Device.defaultDevice )
-      log.info(s"*** simulator started")
+    case Start => log.info(s"*** simulator started")
     case Stop =>
       context.stop(producer)
       context.stop(consumer)
+      kafka.stop()
       buildDeviceReport()
       context.stop(self)
       log.info(s"*** simulator stopped")
