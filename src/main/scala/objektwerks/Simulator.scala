@@ -17,16 +17,17 @@ class Simulator(conf: Config) extends Actor with ActorLogging {
   val kafka = Kafka()
 
   val store = Store(conf)
-  store.addDevice( Device.defaultDevice )
 
   val producer = context.actorOf(Props(classOf[Producer], topic, kafka), name = "producer")
   val consumer = context.actorOf(Props(classOf[Consumer], topic, kafka, store), name = "consumer")
 
-  context.system.scheduler.scheduleWithFixedDelay(3 seconds, 3 seconds)( sendDeviceReading() )
+  context.system.scheduler.scheduleWithFixedDelay(6 seconds, 3 seconds)( sendDeviceReading() )
   context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollDeviceReadings() )
 
   def receive: Receive = {
-    case Start => log.info(s"*** simulator started")
+    case Start =>
+      store.addDevice( Device.defaultDevice )
+      log.info(s"*** simulator started")
     case Stop =>
       context.stop(producer)
       context.stop(consumer)
