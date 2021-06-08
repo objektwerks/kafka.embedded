@@ -9,10 +9,12 @@ Simulation
 >and process:
 1. Simulation --- start ---> Simulator
 2. Simulator --- store default device ---> Store
-3. Simulator --- * send device reading ---> Producer --- send producer record ---> Kafka
-4. Simulator --- * poll device readings ---> Consumer --- poll consumer records ---> Kafka   
-5. Consumer --- store device readings ---> Store   
-6. Simulation --- stop ---> Stimulator --- build report ---> Store
+3. Simulator --- * send device reading ---> Producer
+4. Producer --- send producer record ---> Kafka
+5. Simulator --- * poll device readings ---> Consumer
+6. Consumer --- poll consumer records ---> Kafka   
+7. Consumer --- store device readings ---> Store   
+8. Simulation --- stop ---> Stimulator --- build device report ---> Store
 
 EmbeddedKafka
 -------------
@@ -24,6 +26,7 @@ Test
 
 Run
 ---
+>Ideally, run the simulation for 1 minute.
 1. sbt run
 
 Logs

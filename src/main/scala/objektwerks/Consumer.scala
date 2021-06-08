@@ -4,10 +4,10 @@ import akka.actor.Actor
 
 class Consumer(topic: String, kafka: Kafka, store: Store) extends Actor {
   def receive: Receive = {
-    case PollConsumerRecords => pollConsumerRecords()
+    case PollDeviceReadings => pollDeviceReadings()
   }
 
-  def pollConsumerRecords(): Unit =
+  def pollDeviceReadings(): Unit =
     kafka.pollConsumerRecords(topic).foreach { record =>
       store.addDeviceReading( DeviceReading.jsonToDeviceReading( record.value() ) )
     }

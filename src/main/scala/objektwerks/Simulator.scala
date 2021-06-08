@@ -14,8 +14,8 @@ class Simulator(topic: String, kafka: Kafka, store: Store) extends Actor with Ac
   val producer = context.actorOf(Props(classOf[Producer], topic, kafka), name = "producer")
   val consumer = context.actorOf(Props(classOf[Consumer], topic, kafka, store), name = "consumer")
 
-  context.system.scheduler.scheduleWithFixedDelay(3 seconds, 3 seconds)( sendProducerRecord() )
-  context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollConsumerRecords() )
+  context.system.scheduler.scheduleWithFixedDelay(3 seconds, 3 seconds)( sendDeviceReading() )
+  context.system.scheduler.scheduleWithFixedDelay(6 seconds, 6 seconds)( pollDeviceReadings() )
 
   def receive: Receive = {
     case Start =>
@@ -24,20 +24,20 @@ class Simulator(topic: String, kafka: Kafka, store: Store) extends Actor with Ac
     case Stop =>
       context.stop(producer)
       context.stop(consumer)
-      buildReport()
+      buildDeviceReport()
       context.stop(self)
       log.info(s"*** simulator stopped")
   }
 
-  def sendProducerRecord(): Runnable = new Runnable() {
-    override def run(): Unit = producer ! SendProducerRecords
+  def sendDeviceReading(): Runnable = new Runnable() {
+    override def run(): Unit = producer ! SendDeviceReading
   }
 
-  def pollConsumerRecords(): Runnable = new Runnable() {
-    override def run(): Unit = consumer ! PollConsumerRecords
+  def pollDeviceReadings(): Runnable = new Runnable() {
+    override def run(): Unit = consumer ! PollDeviceReadings
   }
 
-  def buildReport(): Unit = {
+  def buildDeviceReport(): Unit = {
     val devices = store.listDevices
     val builder = mutable.ArrayBuilder.make[String]
     builder += s"*** Device Report [${devices.size}]"

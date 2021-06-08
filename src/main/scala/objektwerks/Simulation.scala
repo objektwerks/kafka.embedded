@@ -19,10 +19,8 @@ object Simulation {
     val topic = conf.getString("kafka.topic")
     val kafka = Kafka()
 
-    val store = Store(conf)
-
     val system = ActorSystem.create("simulation", conf)
-    val simulator = system.actorOf(Props(classOf[Simulator], topic, kafka, store), name = "simulator")
+    val simulator = system.actorOf(Props(classOf[Simulator], topic, kafka, Store(conf)), name = "simulator")
     simulator ! Start
 
     println(s"*** Press return to shutdown simulation.")
@@ -35,7 +33,6 @@ object Simulation {
     logger.info("*** akka system terminated")
 
     kafka.stop()
-    logger.info("*** embedded kafka stopped")
     ()
   }
 }
