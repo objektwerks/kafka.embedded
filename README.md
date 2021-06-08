@@ -4,9 +4,9 @@ Kafka Embedded
 
 Simulation
 ----------
->App simulates this model:
-* **Model:** Device 1 ---> * DeviceReading
->and process:
+>App simulates this **model**:
+* Device 1 ---> * DeviceReading
+>and **process**:
 1. Simulation --- create ---> Akka System
 2. Akka System --- create ---> Simulator
 3. Simulator --- start ---> Kafka
