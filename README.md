@@ -4,7 +4,7 @@ Kafka Embedded
 
 Simulation
 ----------
->App simulates this **model**:
+>Simulates this **model**:
 * Device 1 ---> * DeviceReading
 >and **process**:
 1. Simulation --- create ---> Akka System
@@ -34,7 +34,7 @@ Test
 
 Run
 ---
->Ideally run the simulation for 1 minute plus.
+>Ideally run simulation for 1 minute plus.
 1. sbt run
 
 Logs
