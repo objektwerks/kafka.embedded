@@ -4,7 +4,7 @@ version := "0.1-SNAPSHOT"
 scalaVersion := "2.13.7"
 libraryDependencies ++= {
   val akkaVersion = "2.6.17"
-  val quillVersion = "3.11.0"
+  val quillVersion = "3.10.0". // 3.11 contains dev.zio
   Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
