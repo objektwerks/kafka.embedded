@@ -1,7 +1,7 @@
 name := "kafka.embedded"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.9"
 libraryDependencies ++= {
   val akkaVersion = "2.6.19"
   val quillVersion = "3.10.0". // 3.11 contains dev.zio
