@@ -16,6 +16,6 @@ libraryDependencies ++= {
     "com.typesafe" % "config" % "1.4.2",    
     "io.github.embeddedkafka" %% "embedded-kafka" % "3.3.1",
     "ch.qos.logback" % "logback-classic" % "1.4.5",
-    "org.scalatest" %% "scalatest" % "3.2.14"
+    "org.scalatest" %% "scalatest" % "3.2.15"
   )
 }
