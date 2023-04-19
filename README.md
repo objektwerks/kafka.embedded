@@ -1,6 +1,6 @@
 Kafka Embedded
 --------------
->EmbeddedKafka feature tests, to include a simulation using Akka, Kafka, uPickle, Quill and H2.
+>Embedded Kafka feature tests, to include a simulation using Akka, Kafka, uPickle, Quill and H2.
 
 Simulation
 ----------
