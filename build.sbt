@@ -4,7 +4,7 @@ version := "0.1-SNAPSHOT"
 scalaVersion := "2.13.13"
 libraryDependencies ++= {
   val akkaVersion = "2.6.21" // Don't upgrade due to BUSL 1.1!
-  val quillVersion = "3.10.0" // Don't upgrade since 3.11 contains dev.zio!
+  val quillVersion = "3.10.0" // Don't upgrade, 3.11 contains dev.zio!
   Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
