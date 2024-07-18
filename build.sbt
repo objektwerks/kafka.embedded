@@ -11,7 +11,7 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
     "io.getquill" %% "quill-sql" % quillVersion,
     "io.getquill" %% "quill-jdbc" % quillVersion,
-    "com.h2database" % "h2" % "2.2.224",
+    "com.h2database" % "h2" % "2.3.230",
     "com.lihaoyi" %% "upickle" % "3.3.1",
     "com.typesafe" % "config" % "1.4.3",    
     "io.github.embeddedkafka" %% "embedded-kafka" % "3.7.0",
