@@ -14,7 +14,7 @@ libraryDependencies ++= {
     "com.h2database" % "h2" % "2.3.232",
     "com.lihaoyi" %% "upickle" % "4.0.2",
     "com.typesafe" % "config" % "1.4.3",    
-    "io.github.embeddedkafka" %% "embedded-kafka" % "3.8.0",
+    "io.github.embeddedkafka" %% "embedded-kafka" % "3.8.1",
     "ch.qos.logback" % "logback-classic" % "1.5.12",
     "org.scalatest" %% "scalatest" % "3.2.19"
   )
