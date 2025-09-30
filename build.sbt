@@ -1,7 +1,7 @@
 name := "kafka.embedded"
 organization := "objektwerks"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.13.16"
+scalaVersion := "2.13.17"
 libraryDependencies ++= {
   val akkaVersion = "2.6.21" // Don't upgrade due to BUSL 1.1!
   val quillVersion = "3.10.0" // Don't upgrade, 3.11 contains dev.zio!
