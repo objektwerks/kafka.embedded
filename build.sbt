@@ -12,7 +12,7 @@ libraryDependencies ++= {
     "io.getquill" %% "quill-sql" % quillVersion,
     "io.getquill" %% "quill-jdbc" % quillVersion,
     "com.h2database" % "h2" % "2.4.240",
-    "com.lihaoyi" %% "upickle" % "4.4.1",
+    "com.lihaoyi" %% "upickle" % "4.4.2-RC",
     "com.typesafe" % "config" % "1.4.3",    
     "io.github.embeddedkafka" %% "embedded-kafka" % "4.1.0",
     "ch.qos.logback" % "logback-classic" % "1.5.21",
