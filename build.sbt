@@ -15,7 +15,7 @@ libraryDependencies ++= {
     "com.lihaoyi" %% "upickle" % "4.4.2",
     "com.typesafe" % "config" % "1.4.3",    
     "io.github.embeddedkafka" %% "embedded-kafka" % "4.1.0",
-    "ch.qos.logback" % "logback-classic" % "1.5.22",
+    "ch.qos.logback" % "logback-classic" % "1.5.23",
     "org.scalatest" %% "scalatest" % "3.2.19"
   )
 }
